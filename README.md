@@ -8,7 +8,7 @@ docker compose up
 ## migrationコマンド
 ```shell
 # exec
-php artisan make:migrate`
+php artisan make:migrate
 ```
 
 ```shell
