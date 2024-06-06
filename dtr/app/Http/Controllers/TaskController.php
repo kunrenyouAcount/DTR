@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TaskIndexResource;
+use App\Http\Resources\TaskStoreResource;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,11 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        return response()->json([
-            'message' => 'タスク登録'
+        $task = Task::create([
+            'name' => $request->input('name'),
+            'user_id' => $request->user()->id,
         ]);
+        return TaskStoreResource::make($task);
     }
 
     public function show($id)
