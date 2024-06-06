@@ -16,5 +16,15 @@ php artisan make:migration modify_{テーブル名}_{YYYYMMDD} --table={テー�
 
 ```shell 
 # モデルとマイグレーション、ファクトリ、シーダ、およびコントローラを生成
-php artisan make:model Flight -mfsc
+php artisan make:model {クラス名} -mfsc
+```
+
+```shell
+# FormRequestを作成
+php artisan make:request {クラス名}
+```
+
+```shell
+# Resourceを作成
+php artisan make:resource Task --collection
 ```
