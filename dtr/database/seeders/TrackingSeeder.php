@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use App\Models\Tag;
 use App\Models\Tracking;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,7 +18,8 @@ class TrackingSeeder extends Seeder
     {
         $users = User::with(['tasks'])->get();
         $projects = Project::all();
-        $users->each(function ($user) use ($projects, &$startTime) {
+        $tags = Tag::all();
+        $users->each(function ($user) use ($projects, $tags, &$startTime) {
             for ($i=8; $i < 20; $i += 2) { 
                 $startTime = now()->startOfDay()->addHours($i);
                 Tracking::factory()
@@ -26,7 +28,8 @@ class TrackingSeeder extends Seeder
                     ->taskId($user->tasks->random()->id)
                     ->startTime($startTime)
                     ->endTime($startTime->addHours(2))
-                    ->create();
+                    ->create()
+                    ->tags()->attach($tags->random(2)->pluck('id'));
             }
         });
     }
