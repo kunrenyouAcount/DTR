@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TaskIndexResource;
+use App\Http\Resources\TaskShowResource;
 use App\Http\Resources\TaskStoreResource;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -27,9 +28,8 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        return response()->json([
-            'message' => 'タスク詳細'
-        ]);
+        $task = Task::findOrFail($id);
+        return TaskShowResource::make($task);
     }
 
     public function update(Request $request, $id)
